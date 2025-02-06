@@ -1,5 +1,6 @@
 import { useEffect, useCallback, useState } from 'react';
 import sdk, { type Context } from '@farcaster/frame-sdk';
+import { Button } from './ui/Button';
 
 export default function Demo() {
   const [isSDKLoaded, setIsSDKLoaded] = useState(false);
@@ -21,6 +22,10 @@ export default function Demo() {
     setIsContextOpen((prev) => !prev);
   }, []);
 
+  const openUrl = useCallback(() => {
+    sdk.actions.openUrl('https://www.enkrypt.com/');
+  }, []);
+
   if (!isSDKLoaded) {
     return <div>Loading...</div>;
   }
@@ -40,6 +45,7 @@ export default function Demo() {
             }`}>
             ➤
           </span>
+          {''}
           Tap to expand
         </button>
 
@@ -50,6 +56,19 @@ export default function Demo() {
             </pre>
           </div>
         )}
+      </div>
+
+      <div>
+        <h2 className='font-2xl font-bold'>Actions</h2>
+
+        <div className='mb-4'>
+          <div className='my-2 rounded-lg bg-gray-100 p-2 dark:bg-gray-800'>
+            <pre className='overflow-x- max-w-[260px] whitespace-pre-wrap break-words font-mono text-xs'>
+              sdk.actions.openUrl
+            </pre>
+          </div>
+          <Button onClick={openUrl}>Open Link</Button>
+        </div>
       </div>
     </div>
   );
